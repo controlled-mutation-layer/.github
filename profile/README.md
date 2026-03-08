@@ -18,7 +18,25 @@ Reference Python SDK for emitting structured Turn records.
 
 ---
 
-## Relationship to Emergent State Machine (ESM)
+## Relationship to ESM
+
+The **Emergent State Machine (ESM)** defines the architectural pattern that separates:
+
+- Signals — measurement
+- Projection — interpretation
+- Authority — policy-controlled state mutation
+
+The **Controlled Mutation Layer (CML)** provides a concrete mechanism for enforcing the authoritative mutation boundary defined by ESM.
+
+In other words:
+
+ESM defines the architecture.  
+CML provides an implementation pattern for enforcing the mutation boundary.
+
+Learn more about the architecture here:
+
+👉 https://github.com/emergent-state-machine/.github
+
 
 CML instruments mutation events.
 
