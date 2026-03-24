@@ -2,28 +2,31 @@
 
 Structured mutation instrumentation at the authority boundary.
 
-The **Controlled Mutation Layer (CML)** provides tools and SDKs for **observing, structuring, and instrumenting mutation events at the authority boundary** in software systems.
+The Controlled Mutation Layer (CML) defines and enforces a structured boundary for authoritative state mutation in software systems.
 
-When authoritative state changes, CML makes that mutation **explicit, inspectable, and reproducible**.
+When authoritative state changes, CML ensures that the mutation is:
 
----
+- explicit
+- authorized
+- inspectable
+- replayable
+
+Every authoritative mutation emits a structured Turn record describing why the change was authorized and executed.
 
 ## Architecture Stack
 
 The projects relate as follows:
 
-- **Emergent State Machine (ESM)** — control architecture  
-- **Controlled Mutation Layer (CML)** — mutation instrumentation at the authority boundary  
-- **Digital Learning Companion (DLC)** — reference implementation in education  
+- **Emergent State Machine (ESM)**: control architecture
+- **Controlled Mutation Layer (CML)**: mutation boundary and instrumentation
+- **Digital Learning Companion (DLC)**: reference implementation for education
 
-### Project Links
+## Project Links
 
-- **ESM organization:** https://github.com/emergent-state-machine/.github  
-- **ESM specification:** https://github.com/emergent-state-machine/esm-spec  
-- **DLC organization:** https://github.com/Digital-Learning-Companion  
-- **DLC meta repository:** https://github.com/Digital-Learning-Companion/dlc  
-
----
+- **ESM organization**: [github.com/emergent-state-machine/.github](https://github.com/emergent-state-machine/.github)
+- **ESM specification**: [github.com/emergent-state-machine/esm-spec](https://github.com/emergent-state-machine/esm-spec)
+- **DLC organization**: [github.com/Digital-Learning-Companion](https://github.com/Digital-Learning-Companion)
+- **DLC meta repository**: [github.com/Digital-Learning-Companion/dlc](https://github.com/Digital-Learning-Companion/dlc)
 
 ## Conceptual Relationship
 
@@ -31,10 +34,19 @@ The projects relate as follows:
 Observations / Signals
           │
           ▼
-     Projection
+     State Construction
           │
           ▼
-  Authority Boundary
+      Projection
+          │
+          ▼
+ Relevance Determination
+          │
+          ▼
+   Policy Evaluation
+          │
+          ▼
+  Authority Boundary (CML)
           │
           ▼
  Authoritative Mutation
@@ -45,109 +57,86 @@ Observations / Signals
 
 CML operates at the point where policy-controlled authority produces a real state change.
 
-It does not define the full reasoning architecture.
-It makes the mutation boundary observable, enforceable, and replayable.
+It does not define the full reasoning architecture. It makes the mutation boundary explicit, enforceable, and replayable.
 
 ## What CML Provides
 
-- explicit mutation instrumentation
-
-- structured Turn records
-
-- reproducible mutation logging
-
-- inspectable authority-boundary events
-
-- implementation support for deterministic systems
+- enforced mutation boundary for authoritative state changes
+- structured Turn records for every mutation
+- reproducible, deterministic mutation logging
+- inspectable decision-boundary events
+- SDKs and tooling for instrumenting governed systems
 
 ## Repositories
 
-### 📘 [cml-spec](https://github.com/controlled-mutation-layer/cml-spec)
+### [cml-spec](https://github.com/controlled-mutation-layer/cml-spec)
 
 Conceptual and normative definition of the mutation boundary and structured Turn records.
 
-### 🐍 [sdk-python](https://github.com/controlled-mutation-layer/sdk-python)
+### [sdk-python](https://github.com/controlled-mutation-layer/sdk-python)
 
 Reference Python SDK for emitting structured Turn records and mutation events.
 
 ## Relationship to ESM
 
-The Emergent State Machine (ESM) defines the broader architectural pattern that separates:
+The Emergent State Machine (ESM) defines a control architecture that separates:
 
-- Signals — measurement
+- **Signals**: measurement
+- **State Construction**: coherent interpretation
+- **Projection**: policy-space representation
+- **Relevance Determination**: decision engagement
+- **Authority**: policy-controlled outcome selection
 
-- Projection — interpretation
-
-- Authority — policy-controlled state mutation
-
-The Controlled Mutation Layer (CML) provides a concrete mechanism for enforcing and instrumenting the authoritative mutation boundary defined by ESM.
+The Controlled Mutation Layer (CML) provides the mechanism that enforces and records the authoritative mutation boundary defined by ESM.
 
 In practical terms:
 
-- ESM defines the control architecture
+- ESM defines the reasoning and decision architecture
+- CML enforces where authority is applied
+- CML emits a Turn record for every authorized mutation
 
-- CML instruments mutation events at the authority boundary
-
-- CML records structured Turn events whenever an authoritative state mutation occurs.
-
-These records make system evolution:
+These Turn records make system evolution:
 
 - observable
-
 - replayable
-
 - auditable
 
 ## Reference Implementation
 
-A working educational implementation of the ESM + CML architecture is available in the Digital Learning Companion (DLC) project.
+A working implementation of the ESM + CML architecture is available in the Digital Learning Companion (DLC) project.
 
-DLC demonstrates deterministic instructional reasoning using the Emergent State Machine and provides a public front door to the reference implementation.
+DLC demonstrates deterministic reasoning using ESM and exposes CML Turn records as part of system behavior.
 
-DLC organization: https://github.com/Digital-Learning-Companion
-
-DLC meta repository: https://github.com/Digital-Learning-Companion/dlc
+- **DLC organization**: [github.com/Digital-Learning-Companion](https://github.com/Digital-Learning-Companion)
+- **DLC meta repository**: [github.com/Digital-Learning-Companion/dlc](https://github.com/Digital-Learning-Companion/dlc)
 
 ## Why This Matters
 
-Many software systems blur the line between:
+Many systems blur the boundary between:
 
 - interpretation
-
 - decision authority
+- state mutation
 
-- mutation
-
-CML helps make that boundary explicit.
+CML makes this boundary explicit.
 
 When a system changes authoritative state, that change should be:
 
-- deliberate
+- authorized by policy
+- structurally represented
+- inspectable after the fact
+- reproducible under the same conditions
 
-- structured
-
-- inspectable
-
-- reproducible
-
-CML exists to make those mutation events first-class.
+CML transforms mutation from an implicit side effect into a governed operation.
 
 ## Independence and Scope
 
-CML instruments mutation events at the authority boundary.
+CML focuses specifically on instrumenting and enforcing the authority boundary where state mutation occurs.
 
-ESM defines a broader turn-based control architecture built on top of structured mutation.
+While it is designed to operate within ESM, CML can be adopted independently in systems that require:
 
-CML can also be adopted independently of ESM in systems that require explicit mutation instrumentation without adopting the full ESM architecture.
+- explicit mutation tracking
+- auditability of decisions
+- deterministic mutation control
 
----
-
-## Repositories
-
-### 📘 [cml-spec](https://github.com/controlled-mutation-layer/cml-spec)
-
-Conceptual and normative definition of the mutation boundary and Turn structure.
-
-### 🐍 [sdk-python](https://github.com/controlled-mutation-layer/sdk-python)
-
-Reference Python SDK for emitting structured Turn records.
+ESM defines the broader architecture. CML defines and enforces the mutation boundary within it.
